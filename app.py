@@ -18,12 +18,12 @@ BG         = "#0d1117"
 CARD       = "#161b27"
 CARD2      = "#1c2333"
 BORDER     = "#30363d"
-TEXT       = "#e6edf3"
-TEXT_SEC   = "#8b949e"
+TEXT       = "#f0f6fc"        # 밝게 (가독성 향상)
+TEXT_SEC   = "#b0bec5"        # 보조 텍스트 밝게 (기존 #8b949e → 더 밝은 회청)
 ACCENT     = "#58a6ff"
-GREEN      = "#3fb950"
-AMBER      = "#d29922"
-RED        = "#f85149"
+GREEN      = "#56d364"        # 좀 더 밝은 초록
+AMBER      = "#e3b341"        # 좀 더 밝은 앰버
+RED        = "#ff7b72"        # 좀 더 밝은 빨강
 PLOT_BG    = "#161b27"
 GRID_CLR   = "#21262d"
 
@@ -53,12 +53,21 @@ st.markdown(f"""
   @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
   html, body, [class*="css"] {{
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: {BG};
-    color: {TEXT};
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+    background-color: {BG} !important;
+    color: #c9d1d9 !important;
   }}
+  /* Streamlit specific overrides */
+  .stApp, .main, [data-testid="stAppViewContainer"] {{
+    background-color: {BG} !important;
+  }}
+  .element-container, .stMarkdown, .stText, p, div {{
+    color: #c9d1d9;
+  }}
+  strong, b {{ color: #f0f6fc !important; font-weight: 600; }}
+  a {{ color: {ACCENT} !important; }}
   .block-container {{ padding: 2rem 2.5rem 3rem; max-width: 1400px; }}
-  section[data-testid="stSidebar"] > div:first-child {{ background-color: {CARD}; border-right: 1px solid {BORDER}; }}
+  section[data-testid="stSidebar"] > div:first-child {{ background-color: {CARD} !important; border-right: 1px solid {BORDER}; }}
 
   /* KPI Cards */
   .kpi-grid {{ display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 8px; }}
@@ -81,9 +90,9 @@ st.markdown(f"""
   .kpi-card.green::before  {{ background: {GREEN}; }}
   .kpi-card.amber::before  {{ background: {AMBER}; }}
   .kpi-card.red::before    {{ background: {RED}; }}
-  .kpi-label  {{ color: {TEXT_SEC}; font-size: 12px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; }}
-  .kpi-value  {{ color: {TEXT}; font-size: 26px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }}
-  .kpi-sub    {{ color: {TEXT_SEC}; font-size: 12px; margin-top: 6px; }}
+  .kpi-label  {{ color: #c9d1d9 !important; font-size: 12px; font-weight: 500; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 8px; }}
+  .kpi-value  {{ color: #f0f6fc !important; font-size: 26px; font-weight: 700; letter-spacing: -.02em; line-height: 1; }}
+  .kpi-sub    {{ color: #c9d1d9 !important; font-size: 12px; margin-top: 6px; }}
   .kpi-badge  {{ display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 20px; margin-top: 6px; }}
   .badge-green {{ background: rgba(63,185,80,.15); color: {GREEN}; }}
   .badge-red   {{ background: rgba(248,81,73,.15); color: {RED}; }}
@@ -102,7 +111,7 @@ st.markdown(f"""
     background: {ACCENT};
     flex-shrink: 0;
   }}
-  .section-title {{ color: {TEXT}; font-size: 15px; font-weight: 600; }}
+  .section-title {{ color: #f0f6fc; font-size: 15px; font-weight: 600; }}
 
   /* Analysis Boxes */
   .analysis-box {{
@@ -121,12 +130,12 @@ st.markdown(f"""
     display: flex; align-items: center; gap: 8px;
     font-size: 13px; font-weight: 600; margin-bottom: 6px;
   }}
-  .analysis-head.info    {{ color: {ACCENT}; }}
-  .analysis-head.success {{ color: {GREEN}; }}
-  .analysis-head.warning {{ color: {AMBER}; }}
-  .analysis-head.danger  {{ color: {RED}; }}
-  .analysis-body {{ color: {TEXT_SEC}; font-size: 13px; }}
-  .analysis-body strong {{ color: {TEXT}; }}
+  .analysis-head.info    {{ color: #79c0ff; }}
+  .analysis-head.success {{ color: #56d364; }}
+  .analysis-head.warning {{ color: #e3b341; }}
+  .analysis-head.danger  {{ color: #ff7b72; }}
+  .analysis-body {{ color: #c9d1d9 !important; font-size: 13px; }}
+  .analysis-body strong {{ color: #f0f6fc !important; font-weight: 600; }}
 
   /* Insight Cards */
   .insight-row {{
@@ -146,12 +155,13 @@ st.markdown(f"""
     display: flex; align-items: center; justify-content: center;
     font-size: 13px; font-weight: 700;
   }}
-  .ib-danger  {{ background: rgba(248,81,73,.2);  color: {RED}; }}
-  .ib-success {{ background: rgba(63,185,80,.2);  color: {GREEN}; }}
-  .ib-warning {{ background: rgba(210,153,34,.2); color: {AMBER}; }}
-  .ib-info    {{ background: rgba(88,166,255,.2); color: {ACCENT}; }}
-  .insight-content .title {{ color: {TEXT}; font-size: 13px; font-weight: 600; margin-bottom: 3px; }}
-  .insight-content .body  {{ color: {TEXT_SEC}; font-size: 12px; line-height: 1.6; }}
+  .ib-danger  {{ background: rgba(255,123,114,.2);  color: #ff7b72; }}
+  .ib-success {{ background: rgba(86,211,100,.2);  color: #56d364; }}
+  .ib-warning {{ background: rgba(227,179,65,.2); color: #e3b341; }}
+  .ib-info    {{ background: rgba(121,192,255,.2); color: #79c0ff; }}
+  .insight-content .title {{ color: #f0f6fc !important; font-size: 13px; font-weight: 600; margin-bottom: 3px; }}
+  .insight-content .body  {{ color: #c9d1d9 !important; font-size: 12px; line-height: 1.6; }}
+  .insight-content .body strong {{ color: #f0f6fc !important; font-weight: 600; }}
 
   /* Dividers */
   hr {{ border-color: {BORDER} !important; margin: 24px 0; }}
@@ -178,10 +188,18 @@ st.markdown(f"""
 
   /* Page title */
   .page-title {{
-    font-size: 24px; font-weight: 700; color: {TEXT};
+    font-size: 24px; font-weight: 700; color: #f0f6fc !important;
     letter-spacing: -.03em; margin-bottom: 4px;
   }}
-  .page-sub {{ color: {TEXT_SEC}; font-size: 13px; }}
+  .page-sub {{ color: #c9d1d9 !important; font-size: 13px; }}
+
+  /* Force all heading/text colors */
+  h1, h2, h3, h4, h5, h6 {{ color: #f0f6fc !important; }}
+  .section-title {{ color: #f0f6fc !important; font-size: 15px; font-weight: 600; }}
+  label {{ color: #c9d1d9 !important; }}
+  [data-testid="stMetricLabel"] {{ color: #c9d1d9 !important; }}
+  [data-testid="stMetricValue"] {{ color: #f0f6fc !important; }}
+  [data-testid="stMetricDelta"] {{ color: #c9d1d9 !important; }}
 
   /* Action table */
   .action-row {{
@@ -192,9 +210,10 @@ st.markdown(f"""
     border-bottom: 1px solid {BORDER};
     align-items: center;
     font-size: 13px;
+    color: #c9d1d9;
   }}
   .action-row:last-child {{ border-bottom: none; }}
-  .action-row:first-child {{ font-weight: 600; color: {TEXT_SEC}; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }}
+  .action-row:first-child {{ font-weight: 600; color: #c9d1d9; font-size: 11px; text-transform: uppercase; letter-spacing: .05em; }}
   .action-table {{ background: {CARD}; border: 1px solid {BORDER}; border-radius: 10px; overflow: hidden; margin-top: 8px; }}
 </style>
 """, unsafe_allow_html=True)
@@ -529,8 +548,8 @@ with tab3:
             textfont=dict(color=TEXT),
             hovertemplate="%{label}<br>₩%{value:,.0f}<br>%{percent}<extra></extra>",
         ))
-        fig.add_annotation(text="광고비", x=0.5, y=0.55, showarrow=False, font=dict(color=TEXT_SEC, size=11))
-        fig.add_annotation(text="투입 비율", x=0.5, y=0.45, showarrow=False, font=dict(color=TEXT, size=13, weight=700 if hasattr(dict, 'weight') else 400))
+        fig.add_annotation(text="광고비", x=0.5, y=0.55, showarrow=False, font=dict(color="#c9d1d9", size=11))
+        fig.add_annotation(text="투입 비율", x=0.5, y=0.45, showarrow=False, font=dict(color="#f0f6fc", size=13))
         fig.update_layout(**chart_layout("광고비 채널 배분", 360, True))
         st.plotly_chart(fig, use_container_width=True)
     with col2:
@@ -803,13 +822,13 @@ with tab5:
             <div style="background:{bg};border:1px solid {BORDER};border-radius:8px;
                         padding:10px 14px;margin-bottom:7px;">
               <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;">
-                <span style="color:{TEXT_SEC};font-size:11px;">{row['단계']}</span>
-                <span style="color:{bar_color};font-size:13px;font-weight:700;">{pct}%</span>
+                <span style="color:#c9d1d9;font-size:12px;font-weight:500;">{row['단계']}</span>
+                <span style="color:{bar_color};font-size:14px;font-weight:700;">{pct}%</span>
               </div>
-              <div style="background:{BORDER};border-radius:4px;height:5px;overflow:hidden;">
+              <div style="background:{BORDER};border-radius:4px;height:6px;overflow:hidden;">
                 <div style="background:{bar_color};height:100%;width:{min(pct,100)}%;border-radius:4px;"></div>
               </div>
-              <div style="color:{TEXT_SEC};font-size:10px;margin-top:4px;">
+              <div style="color:#b0bec5;font-size:11px;margin-top:5px;">
                 이탈 {row['이탈율(%)']:}% &nbsp;·&nbsp; 전환수 {row['전환수']:,}
               </div>
             </div>""", unsafe_allow_html=True)
@@ -862,8 +881,8 @@ with tab6:
     section("메트릭 하이어라키 — CAC 분해 트리")
 
     st.markdown(f"""
-    <div style="background:{CARD};border:1px solid {BORDER};border-radius:12px;padding:24px 28px;font-size:13px;line-height:2;font-family:'Courier New',monospace;color:{TEXT_SEC};">
-      <span style="color:{TEXT};font-weight:700;">전체 CAC ₩1,595</span> <span style="color:{AMBER};">(개선 필요)</span><br>
+    <div style="background:{CARD};border:1px solid {BORDER};border-radius:12px;padding:24px 28px;font-size:13px;line-height:2;font-family:'Courier New',monospace;color:#c9d1d9;">
+      <span style="color:#f0f6fc;font-weight:700;">전체 CAC ₩1,595</span> <span style="color:#e3b341;">(개선 필요)</span><br>
       │<br>
       ├─ <span style="color:#4285F4;font-weight:600;">구글</span>&nbsp;&nbsp; CAC <span style="color:{GREEN};font-weight:700;">₩900</span> &nbsp;<span style="color:{GREEN};">✓</span>&nbsp; 광고비 38.8% / 회원가입 기여 41.1%<br>
       │&nbsp;&nbsp;&nbsp;├─ 영상 소재 &nbsp; CAC <span style="color:{GREEN};">₩862</span> &nbsp;<span style="color:{GREEN};">← 전체 최우수</span><br>
@@ -881,8 +900,8 @@ with tab6:
 
     section("퍼널 병목 트리")
     st.markdown(f"""
-    <div style="background:{CARD};border:1px solid {BORDER};border-radius:12px;padding:24px 28px;font-size:13px;line-height:2;font-family:'Courier New',monospace;color:{TEXT_SEC};">
-      광고노출 <span style="color:{TEXT};">4.55B</span><br>
+    <div style="background:{CARD};border:1px solid {BORDER};border-radius:12px;padding:24px 28px;font-size:13px;line-height:2;font-family:'Courier New',monospace;color:#c9d1d9;">
+      광고노출 <span style="color:#f0f6fc;">4.55B</span><br>
       &nbsp;&nbsp;→ 광고클릭 47M &nbsp;&nbsp;&nbsp;&nbsp; CTR <span style="color:{ACCENT};">1.03%</span><br>
       &nbsp;&nbsp;&nbsp;&nbsp;→ 앱설치 26.4M &nbsp;&nbsp; 설치율 <span style="color:{ACCENT};">56.2%</span><br>
       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ 앱실행 23.8M &nbsp;&nbsp; 실행율 <span style="color:{GREEN};">90.0%</span> &nbsp;<span style="color:{TEXT_SEC};">(10% 미실행 이탈)</span><br>
@@ -976,7 +995,7 @@ with tab6:
             st.markdown(f"""
             <div class="action-row">
               <span style="background:{bb};color:{bc};border-radius:6px;padding:3px 8px;font-size:11px;font-weight:600;">{col1_val}</span>
-              <span style="color:{TEXT};font-size:13px;">{col2_val}</span>
-              <span style="color:{TEXT_SEC};font-size:12px;">{col3_val}</span>
+              <span style="color:#f0f6fc;font-size:13px;">{col2_val}</span>
+              <span style="color:#c9d1d9;font-size:12px;">{col3_val}</span>
             </div>""", unsafe_allow_html=True)
     st.markdown('</div>', unsafe_allow_html=True)
